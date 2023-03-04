@@ -27,9 +27,24 @@ jobs:
       - name: Run tests
         run: cargo test --verbose
   
-  # docker:
-  #   needs: [test]
-  #   runs-on: ubuntu-latest
+  docker:
+    if: github.event_name != 'pull_request'
+    name: Publish - Docker Hub
+    needs: [test]
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{ secrets.DOCKER_REPO }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_REPO }} -p ${{ secrets.DOCKER_PASS }}
+      
+      - name: Build Docker image
+        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+      
+      - name: Publish Docker image
+        run: docker push $REPO
   
   # redeploy:
   #   needs: [docker]
