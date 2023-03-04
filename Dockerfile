@@ -2,7 +2,7 @@ FROM rust:1.65 as builder
 WORKDIR /usr/src/simple_web_service
 COPY . .
 RUN apt-get update
-RUN apt-get install mingw-w64
+RUN apt-get -y install mingw-w64
 RUN rustup target add x86_64-pc-windows-gnu
 RUN cargo build --target x86_64-pc-windows-gnu --release
 
