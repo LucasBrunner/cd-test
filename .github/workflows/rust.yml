@@ -27,8 +27,6 @@ jobs:
     name: Publish - Docker Hub
     # needs: [build_and_test]
     runs-on: windows-latest
-    env:
-      REPO: ${{ secrets.DOCKER_REPO }}
 
     steps:
       - uses: actions/checkout@v3
@@ -39,7 +37,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t $REPO:latest -t ${{ secrets.DOCKER_REPO }}:${GITHUB_SHA::8} .
+        run: docker build -t ${{ secrets.DOCKER_REPO }}:latest -t ${{ secrets.DOCKER_REPO }}:${GITHUB_SHA::8} .
       
       - name: Publish Docker image
         run: docker push $REPO
