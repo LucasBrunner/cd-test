@@ -58,6 +58,36 @@ mod fizzbuzz_index_tests {
   }
 }
 
+#[get("/fizzbuzz/range/<min>/<max>")]
+fn fizzbuzz_range(min: u32, max: u32) -> String {
+  let mut output = String::new();
+  for i in min..max {
+    _ = output.write_fmt(format_args!("{}\n", fizzbuzz_index(i)));
+  }
+  output
+}
+
+#[cfg(test)]
+mod fizzbuzz_range_tests {
+  use super::fizzbuzz_range;
+
+  #[test]
+  fn test_range_low() {
+    let vec_to_match = vec!["2", "Fizz", "4", "Buzz", "Fizz"];
+    let range = fizzbuzz_range(2, 7);
+    let generated_vec = range.split_ascii_whitespace().collect::<Vec<_>>();
+    assert_eq!(generated_vec, vec_to_match);
+  }
+
+  #[test]
+  fn test_range_high() {
+    let vec_to_match = vec!["FizzBuzz", "16", "17", "Fizz", "19", "Buzz"];
+    let range = fizzbuzz_range(15, 21);
+    let generated_vec = range.split_ascii_whitespace().collect::<Vec<_>>();
+    assert_eq!(generated_vec, vec_to_match);
+  }
+}
+
 #[launch]
 fn rocket() -> _ {
   let config = Config {
@@ -66,5 +96,5 @@ fn rocket() -> _ {
     ..Config::debug_default()
   };
 
-  rocket::custom(&config).mount("/", routes![index, fizzbuzz_index])
+  rocket::custom(&config).mount("/", routes![index, fizzbuzz_index, fizzbuzz_range])
 }
