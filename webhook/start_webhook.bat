@@ -1,0 +1,1 @@
+start cmd /k webhook --hooks hooks.json --debug
