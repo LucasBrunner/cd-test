@@ -25,6 +25,39 @@ fn fizzbuzz_index(index: u32) -> String {
   output
 }
 
+#[cfg(test)]
+mod fizzbuzz_index_tests {
+  use super::fizzbuzz_index;
+
+  #[test]
+  fn test_fizz() {
+    assert_eq!(fizzbuzz_index(3), "Fizz");
+    assert_eq!(fizzbuzz_index(9), "Fizz");
+    assert_eq!(fizzbuzz_index(21), "Fizz");
+  }
+
+  #[test]
+  fn test_buzz() {
+    assert_eq!(fizzbuzz_index(5), "Buzz");
+    assert_eq!(fizzbuzz_index(20), "Buzz");
+    assert_eq!(fizzbuzz_index(35), "Buzz");
+  }
+
+  #[test]
+  fn test_fizzbuzz() {
+    assert_eq!(fizzbuzz_index(15), "FizzBuzz");
+    assert_eq!(fizzbuzz_index(30), "FizzBuzz");
+    assert_eq!(fizzbuzz_index(75), "FizzBuzz");
+  }
+
+  #[test]
+  fn test_num() {
+    assert_eq!(fizzbuzz_index(2), "2");
+    assert_eq!(fizzbuzz_index(7), "7");
+    assert_eq!(fizzbuzz_index(14), "14");
+  }
+}
+
 #[launch]
 fn rocket() -> _ {
   let config = Config {
