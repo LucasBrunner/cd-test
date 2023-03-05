@@ -1,4 +1,4 @@
-name: Rust
+ name: Rust
 
 on:
   push:
@@ -24,7 +24,12 @@ jobs:
   #     - name: Run tests
   #       run: cargo test --verbose
   
-@ -32,20 +31,21 @@
+  dockerize:
+    if: github.event_name != 'pull_request'
+    name: Publish - Docker Hub
+    # needs: [build_and_test]
+    runs-on: ubuntu-latest
+    env:
       REPO: ${{ secrets.DOCKER_REPO }}
 
     steps:
