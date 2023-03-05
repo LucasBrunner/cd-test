@@ -44,7 +44,7 @@ jobs:
         run: docker build -t $REPO:${{ github.sha }} .
       
       - name: Publish Docker image
-        run: docker push $REPO
+        run: docker push $REPO:${{ github.sha }}
   
   redeploy:
     needs: [dockerize]
