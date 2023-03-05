@@ -10,7 +10,7 @@ fn index() -> &'static str {
   "Hello, world!"
 }
 
-#[get("/fizzbuzz/<index>")]
+#[get("/fizzbuzz/index/<index>")]
 fn fizzbuzz_index(index: u32) -> String {
   let mut output = String::new();
   if index % 3 == 0 {
