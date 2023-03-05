@@ -1,0 +1,14 @@
+[
+  {
+    "id": "redeploy",
+    "execute-command": "C:\\Users\\three\\Downloads\\webhook-windows-amd64\\webhook-windows-amd64\\redeploy.bat",
+    "command-working-directory": "C:\\Users",
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "payload",
+        "name": "hash"
+      }
+    ]
+  }
+]
