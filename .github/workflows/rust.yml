@@ -18,16 +18,13 @@ jobs:
   #     - uses: actions/checkout@v3
   #     - name: Build
   #       run: cargo build --verbose
+      
+  #     - uses: actions/checkout@v3
 
   #     - name: Run tests
   #       run: cargo test --verbose
   
-  dockerize:
-    if: github.event_name != 'pull_request'
-    name: Publish - Docker Hub
-    # needs: [build_and_test]
-    runs-on: ubuntu-latest
-    env:
+@ -32,20 +31,21 @@
       REPO: ${{ secrets.DOCKER_REPO }}
 
     steps:
