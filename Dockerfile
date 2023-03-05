@@ -1,13 +1,10 @@
 FROM rust:1.65 as builder
 WORKDIR /usr/src/simple_web_service
 COPY . .
-RUN apt-get update
-RUN apt-get -y install mingw-w64
-RUN rustup target add x86_64-pc-windows-gnu
-RUN cargo build --target x86_64-pc-windows-gnu --release
+RUN cargo install --path .
 
-FROM mcr.microsoft.com/windows/nanoserver:ltsc2019
+FROM debian:bullseye-slim
 EXPOSE 8000
 RUN apt-get update && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /usr/src/simple_web_service/target/x86_64-pc-windows-gnu/release /usr/local/bin/simple_web_service
+COPY --from=builder /usr/local/cargo/bin/simple_web_service /usr/local/bin/simple_web_service
 CMD ["simple_web_service"]
