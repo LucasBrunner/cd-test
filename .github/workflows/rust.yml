@@ -55,5 +55,5 @@ jobs:
         uses: joelwmale/webhook-action@master
         env:
           WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
-          data: "{ "hash":"$REPO:${GITHUB_SHA::8}" }"
+          data: "{ "hash":"${{ github.sha }}" }"
    
